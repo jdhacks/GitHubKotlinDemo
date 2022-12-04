@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Github Repos</string>
+
+
+    <!--Home Screen Texts-->
+    <string name="search_repo">Search Repository</string>
+    <string name="type_3_letters_or_more_to_search">Type 3 letters or more to search…</string>
+    <string name="no_internet">Make sure your device is connected to internet</string>
+    <string name="somethings_went_wrong">Something Wemt Wrong</string>
+    <string name="lbl_ok">OK</string>
+    <string name="no_internet_header">No Internet Connection</string>
+
+    <string name="lbl_no_data">No Repos Found</string>
+    <string name="lbl_welcome">Github Trending Repos \nBy \nJaimini Dave</string>
+</resources>

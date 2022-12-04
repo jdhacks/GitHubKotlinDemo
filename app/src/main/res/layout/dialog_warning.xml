@@ -1,0 +1,39 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@android:drawable/editbox_background_normal"
+    android:gravity="center"
+    android:minWidth="@dimen/_300sdp"
+    android:minHeight="@dimen/_250sdp"
+    android:orientation="vertical"
+    android:padding="@dimen/_10sdp">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_70sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:id="@+id/ivDialogue"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_github" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_warning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/tvStyleRegulardialog"
+        android:textAlignment="center"
+        tools:text="@string/cancle_order_text"
+        android:textSize="@dimen/_15ssp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/btnokWarning"
+        android:theme="@style/my_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+       android:text="@string/lbl_ok"
+        android:padding="@dimen/_5sdp"
+        android:textSize="@dimen/_18ssp" />
+
+</LinearLayout>

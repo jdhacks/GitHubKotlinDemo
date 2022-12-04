@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/shimmerbggray"
+    >
+    <androidx.cardview.widget.CardView
+        android:id="@+id/searchViewCard1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/_5sdp"
+        app:cardElevation="@dimen/_5sdp">
+    </androidx.cardview.widget.CardView>
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="@dimen/_16sdp"
+       android:orientation="vertical"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintStart_toEndOf="parent"
+       app:layout_constraintTop_toBottomOf="@+id/searchViewCard1" >
+       <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+           xmlns:app="http://schemas.android.com/apk/res-auto"
+           xmlns:tools="http://schemas.android.com/tools"
+
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginBottom="@dimen/_8sdp"
+           android:background="@color/gray_ececec"
+           android:clickable="true"
+           android:focusable="true">
+
+           <androidx.cardview.widget.CardView
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:layout_margin="@dimen/_5sdp"
+               app:cardBackgroundColor="@color/white"
+               app:cardCornerRadius="@dimen/_5sdp"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintTop_toTopOf="parent"
+               app:layout_constraintBottom_toBottomOf="parent"
+               app:cardElevation="@dimen/_5sdp">
+
+               <androidx.constraintlayout.widget.ConstraintLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:clickable="true"
+                   android:focusable="true">
+
+                   <androidx.constraintlayout.widget.Guideline
+                       android:id="@+id/guidline11"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:orientation="vertical"
+                       app:layout_constraintGuide_percent="0.4" />
+
+
+                   <androidx.appcompat.widget.AppCompatImageView
+                       android:id="@+id/fram11"
+                       android:layout_width="@dimen/_60sdp"
+                       android:layout_height="@dimen/_60sdp"
+                       android:src="@drawable/circle_grey_shimmer"
+                       app:layout_constraintBottom_toBottomOf="parent"
+                       app:layout_constraintEnd_toStartOf="@id/guidline11"
+                       app:layout_constraintStart_toStartOf="parent"
+                       app:layout_constraintTop_toTopOf="parent" />
+
+                   <de.hdodenhof.circleimageview.CircleImageView
+                       android:id="@+id/imgUser1"
+                       android:layout_width="@dimen/_72sdp"
+                       android:layout_height="@dimen/_72sdp"
+                       app:civ_border_color="@color/shimmerlaycolor"
+                       app:layout_constraintBottom_toBottomOf="@id/fram11"
+                       app:layout_constraintEnd_toStartOf="@id/guidline11"
+                       app:layout_constraintStart_toStartOf="parent"
+                       android:src="@drawable/circle_grey_shimmer"
+                       tools:src="@drawable/circle_grey_shimmer" />
+
+                   <androidx.appcompat.widget.AppCompatImageView
+
+                       android:layout_width="@dimen/_30sdp"
+                       android:layout_height="@dimen/_30sdp"
+                       android:src="@drawable/ic_selected"
+                       android:visibility="gone"
+                       app:layout_constraintBottom_toBottomOf="parent"
+                       app:layout_constraintEnd_toStartOf="@id/guidline11"
+                       app:layout_constraintStart_toStartOf="parent"
+                       app:layout_constraintTop_toTopOf="parent" />
+
+
+                   <LinearLayout
+                       android:layout_width="0dp"
+                       android:layout_height="wrap_content"
+                       android:background="@color/white"
+                       android:gravity="start|center"
+                       android:orientation="vertical"
+                       android:padding="0dp"
+                       app:layout_constraintEnd_toEndOf="parent"
+                       app:layout_constraintBottom_toBottomOf="parent"
+                       app:layout_constraintStart_toEndOf="@id/guidline11"
+                       app:layout_constraintTop_toTopOf="parent">
+
+                       <androidx.appcompat.widget.AppCompatTextView
+
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:background="@color/shimmerlaycolor"
+                           android:layout_marginStart="@dimen/_12sdp"
+                           android:layout_marginTop="@dimen/_8sdp"
+                           android:layout_marginEnd="@dimen/_12sdp"
+                           android:ellipsize="end"
+                           app:layout_constraintEnd_toEndOf="parent"
+                           app:layout_constraintStart_toStartOf="parent"
+                           app:layout_constraintTop_toTopOf="parent"
+                           android:gravity="start"
+                           android:lines="1"
+                           android:maxLines="1"
+                           android:textAlignment="viewStart"
+                           android:textSize="@dimen/_14ssp" />
+
+
+                   </LinearLayout>
+
+               </androidx.constraintlayout.widget.ConstraintLayout>
+           </androidx.cardview.widget.CardView>
+
+       </androidx.constraintlayout.widget.ConstraintLayout>
+       <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+           xmlns:app="http://schemas.android.com/apk/res-auto"
+           xmlns:tools="http://schemas.android.com/tools"
+
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginBottom="@dimen/_8sdp"
+           android:background="@color/gray_ececec"
+           android:clickable="true"
+           android:focusable="true">
+
+           <androidx.cardview.widget.CardView
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:layout_margin="@dimen/_5sdp"
+               app:cardBackgroundColor="@color/white"
+               app:cardCornerRadius="@dimen/_5sdp"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintTop_toTopOf="parent"
+               app:layout_constraintBottom_toBottomOf="parent"
+               app:cardElevation="@dimen/_5sdp">
+
+               <androidx.constraintlayout.widget.ConstraintLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:clickable="true"
+                   android:focusable="true">
+
+                   <androidx.constraintlayout.widget.Guideline
+                       android:id="@+id/guidline12"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:orientation="vertical"
+                       app:layout_constraintGuide_percent="0.4" />
+
+
+                   <androidx.appcompat.widget.AppCompatImageView
+                       android:id="@+id/fram12"
+                       android:layout_width="@dimen/_60sdp"
+                       android:layout_height="@dimen/_60sdp"
+                       android:src="@drawable/circle_grey_shimmer"
+                       app:layout_constraintBottom_toBottomOf="parent"
+                       app:layout_constraintEnd_toStartOf="@id/guidline12"
+                       app:layout_constraintStart_toStartOf="parent"
+                       app:layout_constraintTop_toTopOf="parent" />
+
+                   <de.hdodenhof.circleimageview.CircleImageView
+                       android:layout_width="@dimen/_72sdp"
+                       android:layout_height="@dimen/_72sdp"
+                       app:civ_border_color="@color/shimmerlaycolor"
+                       app:layout_constraintBottom_toBottomOf="@id/fram12"
+                       app:layout_constraintEnd_toStartOf="@id/guidline12"
+                       app:layout_constraintStart_toStartOf="parent"
+                       android:src="@drawable/circle_grey_shimmer"
+                       tools:src="@drawable/circle_grey_shimmer" />
+
+                   <androidx.appcompat.widget.AppCompatImageView
+
+                       android:layout_width="@dimen/_30sdp"
+                       android:layout_height="@dimen/_30sdp"
+                       android:src="@drawable/ic_selected"
+                       android:visibility="gone"
+                       app:layout_constraintBottom_toBottomOf="parent"
+                       app:layout_constraintEnd_toStartOf="@id/guidline12"
+                       app:layout_constraintStart_toStartOf="parent"
+                       app:layout_constraintTop_toTopOf="parent" />
+
+
+                   <LinearLayout
+                       android:layout_width="0dp"
+                       android:layout_height="wrap_content"
+                       android:background="@color/white"
+                       android:gravity="start|center"
+                       android:orientation="vertical"
+                       android:padding="0dp"
+                       app:layout_constraintEnd_toEndOf="parent"
+                       app:layout_constraintBottom_toBottomOf="parent"
+                       app:layout_constraintStart_toEndOf="@id/guidline12"
+                       app:layout_constraintTop_toTopOf="parent">
+
+                       <androidx.appcompat.widget.AppCompatTextView
+
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:background="@color/shimmerlaycolor"
+                           android:layout_marginStart="@dimen/_12sdp"
+                           android:layout_marginTop="@dimen/_8sdp"
+                           android:layout_marginEnd="@dimen/_12sdp"
+                           android:ellipsize="end"
+                           app:layout_constraintEnd_toEndOf="parent"
+                           app:layout_constraintStart_toStartOf="parent"
+                           app:layout_constraintTop_toTopOf="parent"
+                           android:gravity="start"
+                           android:lines="1"
+                           android:maxLines="1"
+                           android:textAlignment="viewStart"
+                           android:textSize="@dimen/_14ssp" />
+
+
+                   </LinearLayout>
+
+               </androidx.constraintlayout.widget.ConstraintLayout>
+           </androidx.cardview.widget.CardView>
+
+       </androidx.constraintlayout.widget.ConstraintLayout>
+       <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+           xmlns:app="http://schemas.android.com/apk/res-auto"
+           xmlns:tools="http://schemas.android.com/tools"
+
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginBottom="@dimen/_8sdp"
+           android:background="@color/gray_ececec"
+           android:clickable="true"
+           android:focusable="true">
+
+           <androidx.cardview.widget.CardView
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:layout_margin="@dimen/_5sdp"
+               app:cardBackgroundColor="@color/white"
+               app:cardCornerRadius="@dimen/_5sdp"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintTop_toTopOf="parent"
+               app:layout_constraintBottom_toBottomOf="parent"
+               app:cardElevation="@dimen/_5sdp">
+
+               <androidx.constraintlayout.widget.ConstraintLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:clickable="true"
+                   android:focusable="true">
+
+                   <androidx.constraintlayout.widget.Guideline
+                       android:id="@+id/guidline13"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:orientation="vertical"
+                       app:layout_constraintGuide_percent="0.4" />
+
+
+                   <androidx.appcompat.widget.AppCompatImageView
+                       android:id="@+id/fram13"
+                       android:layout_width="@dimen/_60sdp"
+                       android:layout_height="@dimen/_60sdp"
+                       android:src="@drawable/circle_grey_shimmer"
+                       app:layout_constraintBottom_toBottomOf="parent"
+                       app:layout_constraintEnd_toStartOf="@id/guidline13"
+                       app:layout_constraintStart_toStartOf="parent"
+                       app:layout_constraintTop_toTopOf="parent" />
+
+                   <de.hdodenhof.circleimageview.CircleImageView
+                       android:layout_width="@dimen/_72sdp"
+                       android:layout_height="@dimen/_72sdp"
+                       app:civ_border_color="@color/shimmerlaycolor"
+                       app:layout_constraintBottom_toBottomOf="@id/fram13"
+                       app:layout_constraintEnd_toStartOf="@id/guidline13"
+                       app:layout_constraintStart_toStartOf="parent"
+                       android:src="@drawable/circle_grey_shimmer"
+                       tools:src="@drawable/circle_grey_shimmer" />
+
+                   <androidx.appcompat.widget.AppCompatImageView
+
+                       android:layout_width="@dimen/_30sdp"
+                       android:layout_height="@dimen/_30sdp"
+                       android:src="@drawable/ic_selected"
+                       android:visibility="gone"
+                       app:layout_constraintBottom_toBottomOf="parent"
+                       app:layout_constraintEnd_toStartOf="@id/guidline13"
+                       app:layout_constraintStart_toStartOf="parent"
+                       app:layout_constraintTop_toTopOf="parent" />
+
+
+                   <LinearLayout
+                       android:layout_width="0dp"
+                       android:layout_height="wrap_content"
+                       android:background="@color/white"
+                       android:gravity="start|center"
+                       android:orientation="vertical"
+                       android:padding="0dp"
+                       app:layout_constraintEnd_toEndOf="parent"
+                       app:layout_constraintBottom_toBottomOf="parent"
+                       app:layout_constraintStart_toEndOf="@id/guidline13"
+                       app:layout_constraintTop_toTopOf="parent">
+
+                       <androidx.appcompat.widget.AppCompatTextView
+
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:background="@color/shimmerlaycolor"
+                           android:layout_marginStart="@dimen/_12sdp"
+                           android:layout_marginTop="@dimen/_8sdp"
+                           android:layout_marginEnd="@dimen/_12sdp"
+                           android:ellipsize="end"
+                           app:layout_constraintEnd_toEndOf="parent"
+                           app:layout_constraintStart_toStartOf="parent"
+                           app:layout_constraintTop_toTopOf="parent"
+                           android:gravity="start"
+                           android:lines="1"
+                           android:maxLines="1"
+                           android:textAlignment="viewStart"
+                           android:textSize="@dimen/_14ssp" />
+
+
+                   </LinearLayout>
+
+               </androidx.constraintlayout.widget.ConstraintLayout>
+           </androidx.cardview.widget.CardView>
+
+       </androidx.constraintlayout.widget.ConstraintLayout>
+       <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+           xmlns:app="http://schemas.android.com/apk/res-auto"
+           xmlns:tools="http://schemas.android.com/tools"
+
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginBottom="@dimen/_8sdp"
+           android:background="@color/gray_ececec"
+           android:clickable="true"
+           android:focusable="true">
+
+           <androidx.cardview.widget.CardView
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:layout_margin="@dimen/_5sdp"
+               app:cardBackgroundColor="@color/white"
+               app:cardCornerRadius="@dimen/_5sdp"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintTop_toTopOf="parent"
+               app:layout_constraintBottom_toBottomOf="parent"
+               app:cardElevation="@dimen/_5sdp">
+
+               <androidx.constraintlayout.widget.ConstraintLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:clickable="true"
+                   android:focusable="true">
+
+                   <androidx.constraintlayout.widget.Guideline
+                       android:id="@+id/guidline14"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:orientation="vertical"
+                       app:layout_constraintGuide_percent="0.4" />
+
+
+                   <androidx.appcompat.widget.AppCompatImageView
+                       android:id="@+id/fram14"
+                       android:layout_width="@dimen/_60sdp"
+                       android:layout_height="@dimen/_60sdp"
+                       android:src="@drawable/circle_grey_shimmer"
+                       app:layout_constraintBottom_toBottomOf="parent"
+                       app:layout_constraintEnd_toStartOf="@id/guidline14"
+                       app:layout_constraintStart_toStartOf="parent"
+                       app:layout_constraintTop_toTopOf="parent" />
+
+                   <de.hdodenhof.circleimageview.CircleImageView
+                       android:layout_width="@dimen/_72sdp"
+                       android:layout_height="@dimen/_72sdp"
+                       app:civ_border_color="@color/shimmerlaycolor"
+                       app:layout_constraintBottom_toBottomOf="@id/fram14"
+                       app:layout_constraintEnd_toStartOf="@id/guidline14"
+                       app:layout_constraintStart_toStartOf="parent"
+                       android:src="@drawable/circle_grey_shimmer"
+                       tools:src="@drawable/circle_grey_shimmer" />
+
+                   <androidx.appcompat.widget.AppCompatImageView
+
+                       android:layout_width="@dimen/_30sdp"
+                       android:layout_height="@dimen/_30sdp"
+                       android:src="@drawable/ic_selected"
+                       android:visibility="gone"
+                       app:layout_constraintBottom_toBottomOf="parent"
+                       app:layout_constraintEnd_toStartOf="@id/guidline14"
+                       app:layout_constraintStart_toStartOf="parent"
+                       app:layout_constraintTop_toTopOf="parent" />
+
+
+                   <LinearLayout
+                       android:layout_width="0dp"
+                       android:layout_height="wrap_content"
+                       android:background="@color/white"
+                       android:gravity="start|center"
+                       android:orientation="vertical"
+                       android:padding="0dp"
+                       app:layout_constraintEnd_toEndOf="parent"
+                       app:layout_constraintBottom_toBottomOf="parent"
+                       app:layout_constraintStart_toEndOf="@id/guidline14"
+                       app:layout_constraintTop_toTopOf="parent">
+
+                       <androidx.appcompat.widget.AppCompatTextView
+
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:background="@color/shimmerlaycolor"
+                           android:layout_marginStart="@dimen/_12sdp"
+                           android:layout_marginTop="@dimen/_8sdp"
+                           android:layout_marginEnd="@dimen/_12sdp"
+                           android:ellipsize="end"
+                           app:layout_constraintEnd_toEndOf="parent"
+                           app:layout_constraintStart_toStartOf="parent"
+                           app:layout_constraintTop_toTopOf="parent"
+                           android:gravity="start"
+                           android:lines="1"
+                           android:maxLines="1"
+                           android:textAlignment="viewStart"
+                           android:textSize="@dimen/_14ssp" />
+
+
+                   </LinearLayout>
+
+               </androidx.constraintlayout.widget.ConstraintLayout>
+           </androidx.cardview.widget.CardView>
+
+       </androidx.constraintlayout.widget.ConstraintLayout>
+
+       <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+           xmlns:app="http://schemas.android.com/apk/res-auto"
+           xmlns:tools="http://schemas.android.com/tools"
+
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginBottom="@dimen/_8sdp"
+           android:background="@color/gray_ececec"
+           android:clickable="true"
+           android:focusable="true">
+
+           <androidx.cardview.widget.CardView
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:layout_margin="@dimen/_5sdp"
+               app:cardBackgroundColor="@color/white"
+               app:cardCornerRadius="@dimen/_5sdp"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintTop_toTopOf="parent"
+               app:layout_constraintBottom_toBottomOf="parent"
+               app:cardElevation="@dimen/_5sdp">
+
+               <androidx.constraintlayout.widget.ConstraintLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:clickable="true"
+                   android:focusable="true">
+
+                   <androidx.constraintlayout.widget.Guideline
+                       android:id="@+id/guidline15"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:orientation="vertical"
+                       app:layout_constraintGuide_percent="0.4" />
+
+
+                   <androidx.appcompat.widget.AppCompatImageView
+                       android:id="@+id/fram15"
+                       android:layout_width="@dimen/_60sdp"
+                       android:layout_height="@dimen/_60sdp"
+                       android:src="@drawable/circle_grey_shimmer"
+                       app:layout_constraintBottom_toBottomOf="parent"
+                       app:layout_constraintEnd_toStartOf="@id/guidline15"
+                       app:layout_constraintStart_toStartOf="parent"
+                       app:layout_constraintTop_toTopOf="parent" />
+
+                   <de.hdodenhof.circleimageview.CircleImageView
+                       android:layout_width="@dimen/_72sdp"
+                       android:layout_height="@dimen/_72sdp"
+                       app:civ_border_color="@color/shimmerlaycolor"
+                       app:layout_constraintBottom_toBottomOf="@id/fram15"
+                       app:layout_constraintEnd_toStartOf="@id/guidline15"
+                       app:layout_constraintStart_toStartOf="parent"
+                       android:src="@drawable/circle_grey_shimmer"
+                       tools:src="@drawable/circle_grey_shimmer" />
+
+                   <androidx.appcompat.widget.AppCompatImageView
+
+                       android:layout_width="@dimen/_30sdp"
+                       android:layout_height="@dimen/_30sdp"
+                       android:src="@drawable/ic_selected"
+                       android:visibility="gone"
+                       app:layout_constraintBottom_toBottomOf="parent"
+                       app:layout_constraintEnd_toStartOf="@id/guidline15"
+                       app:layout_constraintStart_toStartOf="parent"
+                       app:layout_constraintTop_toTopOf="parent" />
+
+
+                   <LinearLayout
+                       android:layout_width="0dp"
+                       android:layout_height="wrap_content"
+                       android:background="@color/white"
+                       android:gravity="start|center"
+                       android:orientation="vertical"
+                       android:padding="0dp"
+                       app:layout_constraintEnd_toEndOf="parent"
+                       app:layout_constraintBottom_toBottomOf="parent"
+                       app:layout_constraintStart_toEndOf="@id/guidline15"
+                       app:layout_constraintTop_toTopOf="parent">
+
+                       <androidx.appcompat.widget.AppCompatTextView
+
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:background="@color/shimmerlaycolor"
+                           android:layout_marginStart="@dimen/_12sdp"
+                           android:layout_marginTop="@dimen/_8sdp"
+                           android:layout_marginEnd="@dimen/_12sdp"
+                           android:ellipsize="end"
+                           app:layout_constraintEnd_toEndOf="parent"
+                           app:layout_constraintStart_toStartOf="parent"
+                           app:layout_constraintTop_toTopOf="parent"
+                           android:gravity="start"
+                           android:lines="1"
+                           android:maxLines="1"
+                           android:textAlignment="viewStart"
+                           android:textSize="@dimen/_14ssp" />
+
+
+                   </LinearLayout>
+
+               </androidx.constraintlayout.widget.ConstraintLayout>
+           </androidx.cardview.widget.CardView>
+
+       </androidx.constraintlayout.widget.ConstraintLayout>
+   </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
