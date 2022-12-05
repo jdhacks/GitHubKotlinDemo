@@ -1,11 +1,6 @@
-package com.github.githubmvvmdemo.domail
+package com.github.githubmvvmdemo.domain
 
-import android.content.Context
-import android.util.Log
-import com.github.githubmvvmdemo.BuildConfig
-import com.github.githubmvvmdemo.utils.AppConstant
 import com.google.gson.GsonBuilder
-import com.pixplicity.easyprefs.library.Prefs
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -40,18 +35,18 @@ class ApiClient {
                     var responceString: String? = ""
                     try {
                         response = chain.proceed(request)
-                        responceString = String(response.body!!.bytes())
+                        responceString = response.body?.bytes()?.let { String(it) }
                     } catch (e: ConnectException) {
 
                     }
 
-                    response = response!!.newBuilder().body(
+                    response = response?.newBuilder()?.body(
                         ResponseBody.create(
-                            response.body!!.contentType(),
+                            response.body?.contentType(),
                             responceString!!
                         )
-                    ).build()
-                    response
+                    )?.build()
+                    response!!
                 }.protocols(
                     arrayListOf(Protocol.HTTP_1_1)
                 ).build()

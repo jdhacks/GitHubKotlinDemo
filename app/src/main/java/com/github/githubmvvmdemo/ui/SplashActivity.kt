@@ -6,8 +6,9 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.WindowManager
+import android.view.WindowManager.LayoutParams
 import androidx.appcompat.app.AppCompatActivity
-import com.github.githubmvvmdemo.MainActivity
+import com.github.githubmvvmdemo.ui.MainActivity
 import com.github.githubmvvmdemo.R
 import com.github.githubmvvmdemo.databinding.ActivitySplashBinding
 import com.github.githubmvvmdemo.utils.AppConstant
@@ -20,8 +21,8 @@ class SplashActivity : AppCompatActivity() {
         setContentView(binding.root)
        // goToMainEntryScreen()
         window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
+            LayoutParams.FLAG_FULLSCREEN,
+            LayoutParams.FLAG_FULLSCREEN
         )
         goToMainEntryScreen()
         // we used the postDelayed(Runnable, time) method

@@ -1,10 +1,8 @@
-package com.github.githubmvvmdemo.domail
+package com.github.githubmvvmdemo.domain
 
-import com.github.githubmvvmdemo.data.*
+import com.github.githubmvvmdemo.dataSources.remote.GithubSearch
 import com.github.githubmvvmdemo.utils.ApiConstant
-import io.reactivex.Single
 import retrofit2.Call
-import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiService {

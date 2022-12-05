@@ -3,22 +3,21 @@ package com.github.githubmvvmdemo.ViewModels
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
-import com.github.githubmvvmdemo.data.GithubSearch
-import com.github.githubmvvmdemo.data.Item
-import com.github.githubmvvmdemo.domail.ApiClient
-import com.github.githubmvvmdemo.domail.ApiService
+import com.github.githubmvvmdemo.dataSources.remote.GithubSearch
+import com.github.githubmvvmdemo.dataSources.remote.Item
+import com.github.githubmvvmdemo.domain.ApiClient
+import com.github.githubmvvmdemo.domain.ApiService
 import com.github.githubmvvmdemo.utils.Utility
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class RepoViewModel : ViewModel() {
-    val ItemsLiveData: MutableLiveData<List<Item>> by lazy {
+    val itemsLiveData: MutableLiveData<List<Item>> by lazy {
         MutableLiveData<List<Item>>()
     }
-    val ItemsLiveSearchData: MutableLiveData<List<Item>> by lazy {
+    val itemsLiveSearchData: MutableLiveData<List<Item>> by lazy {
         MutableLiveData<List<Item>>()
     }
 
@@ -26,8 +25,7 @@ class RepoViewModel : ViewModel() {
                    ApiClient.getClient().create(ApiService::class.java).GetReposSearchList(Utility.GetDateBeforeTwomonth()).enqueue(object  : Callback<GithubSearch> {
                            override fun onResponse(call: Call<GithubSearch>, response: Response<GithubSearch>) {
                                if (response.body()!=null){
-                                    ItemsLiveData.value = response.body()!!.getItems()!!
-
+                                    itemsLiveData.value = response.body()?.getItems().orEmpty()
                                }
                                else{
                                    return
@@ -37,11 +35,11 @@ class RepoViewModel : ViewModel() {
                                Log.d("TAG",t.message.toString())
                            }
                        })
-                   return ItemsLiveData
+                   return itemsLiveData
                }
 
                fun observLiveData() : LiveData<List<Item>> {
-                   return ItemsLiveData
+                   return itemsLiveData
                }
 
 

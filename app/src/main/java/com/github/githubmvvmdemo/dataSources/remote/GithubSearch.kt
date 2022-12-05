@@ -1,4 +1,4 @@
-package com.github.githubmvvmdemo.data
+package com.github.githubmvvmdemo.dataSources.remote
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

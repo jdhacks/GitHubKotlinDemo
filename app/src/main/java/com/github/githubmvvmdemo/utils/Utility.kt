@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.ConnectivityManager
 import android.util.Log
+import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
@@ -17,7 +18,7 @@ import com.github.githubmvvmdemo.R
 import java.text.SimpleDateFormat
 import java.util.*
 
-public class Utility {
+class Utility {
 
     companion object {
         fun isNetworkAvailable(context: Context?): Boolean {
@@ -30,22 +31,23 @@ public class Utility {
                 false
             }
         }
+
         fun alertDialog(context: Activity?, message: String?, cancelable: Boolean) {
             if (context != null) {
                 val dialog = Dialog(context)
-                dialog.window!!
+                dialog?.window!!
                     .setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 dialog.setCancelable(cancelable)
                 dialog.setCanceledOnTouchOutside(cancelable)
-                /*dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);*/
-                /*dialog.getWindow().setGravity(Gravity.TOP);*/dialog.setContentView(R.layout.dialog_warning)
+                /*dialog.requestWindowFeature(Window.FEATURE_NO_TITLE) */
+                /*dialog.getWindow().setGravity(Gravity.TOP) */dialog.setContentView(R.layout.dialog_warning)
                 val txtTitle: AppCompatTextView
                 val yes_button: AppCompatTextView
                 yes_button = dialog.findViewById(R.id.btnokWarning)
                 txtTitle = dialog.findViewById(R.id.txt_warning)
                 if (com.github.githubmvvmdemo.utils.Utility.isNetworkAvailable(context)) {
                     txtTitle.text = message
-                    // txtTitle.setText(context.getString(R.string.general_error));
+                    // txtTitle.setText(context.getString(R.string.general_error)) 
                     try {
                         if (!dialog.isShowing) {
                             dialog.window!!
@@ -68,7 +70,6 @@ public class Utility {
                     }
                 }
                 yes_button.setOnClickListener {
-                    context.onBackPressed()
                     dialog.dismiss()
                 }
             }
@@ -82,11 +83,11 @@ public class Utility {
         ) {
             if (context != null) {
                 val dialog = Dialog(context)
-                dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 dialog.setCancelable(cancelable)
                 dialog.setCanceledOnTouchOutside(cancelable)
-                /*dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);*/
-                /*dialog.getWindow().setGravity(Gravity.TOP);*/dialog.setContentView(R.layout.dialo_no_internet)
+                /*dialog.requestWindowFeature(Window.FEATURE_NO_TITLE) */
+                /*dialog.getWindow().setGravity(Gravity.TOP) */dialog.setContentView(R.layout.dialo_no_internet)
                 val txt_warning: AppCompatTextView
                 val txt_header: AppCompatTextView
                 val btnokWarning: AppCompatTextView
@@ -100,7 +101,7 @@ public class Utility {
                 }
                 try {
                     if (!dialog.isShowing) {
-                        dialog.window!!.setLayout(
+                        dialog.window?.setLayout(
                             LinearLayout.LayoutParams.MATCH_PARENT,
                             LinearLayout.LayoutParams.WRAP_CONTENT
                         )
@@ -111,20 +112,23 @@ public class Utility {
                 }
             }
         }
+
         fun displayMessage(context: Context?, message: String?) {
-            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+            val t: Toast = Toast.makeText(context, message, Toast.LENGTH_SHORT)
+            t.setGravity(Gravity.CENTER, 0, 0)
+            t.show()
         }
 
 
-        fun GetDateBeforeTwomonth() : String
-        {
-             val calendar = Calendar.getInstance()
+        fun GetDateBeforeTwomonth(): String {
+            val calendar = Calendar.getInstance()
             calendar.add(Calendar.MONTH, -2)
             val date = calendar.time
             val format = SimpleDateFormat("yyyy-MM-dd")
             val dateOutput = format.format(date)
-             return dateOutput
+            return dateOutput
         }
+
         fun getCircularProgressDrawable(context: Context): CircularProgressDrawable? {
             val circularProgressDrawable = CircularProgressDrawable(context)
             circularProgressDrawable.setStyle(CircularProgressDrawable.DEFAULT)
