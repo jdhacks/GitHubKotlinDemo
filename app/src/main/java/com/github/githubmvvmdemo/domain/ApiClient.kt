@@ -12,14 +12,12 @@ import java.util.concurrent.TimeUnit
 
 class ApiClient {
     companion object {
-        //var BASE_URL = "https://www.eshopshub.com/rest/V1/"  /*live*/
 
-
-        fun getClient(): Retrofit {
+        fun getClient(): ApiService {
             val loggerInterceptor = HttpLoggingInterceptor()
-            if(com.github.githubmvvmdemo.BuildConfig.DEBUG){
+            if (com.github.githubmvvmdemo.BuildConfig.DEBUG) {
                 loggerInterceptor.level = HttpLoggingInterceptor.Level.BODY
-            }else{
+            } else {
                 loggerInterceptor.level = HttpLoggingInterceptor.Level.NONE
             }
 
@@ -62,6 +60,8 @@ class ApiClient {
                 .client(okHttpClient)
                 .baseUrl(url)
                 .build()
+                .create(ApiService::class.java)
+
         }
     }
 

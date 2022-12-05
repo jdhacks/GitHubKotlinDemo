@@ -29,31 +29,37 @@ class Utility {
     companion object {
 
 
-        fun alertDialog(context: Activity?, message: String?, cancelable: Boolean, alertDialogCallback: AlertDialogCallback) {
+        fun alertDialog(
+            context: Activity?,
+            message: String?,
+            cancelable: Boolean,
+            alertDialogCallback: AlertDialogCallback
+        ) {
             if (context != null) {
                 val dialog = Dialog(context)
                 dialog.window!!
                     .setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 dialog.setCancelable(cancelable)
                 dialog.setCanceledOnTouchOutside(cancelable)
-                val binding : DialogWarningBinding = DialogWarningBinding.inflate(LayoutInflater.from(context))
+                val binding: DialogWarningBinding =
+                    DialogWarningBinding.inflate(LayoutInflater.from(context))
                 dialog.setContentView(binding.root)
 
 
-                    binding.txtWarning.text = message
-                    // txtTitle.setText(context.getString(R.string.general_error))
-                    try {
-                        if (!dialog.isShowing) {
-                            dialog.window!!
-                                .setLayout(
-                                    LinearLayout.LayoutParams.MATCH_PARENT,
-                                    LinearLayout.LayoutParams.WRAP_CONTENT
-                                )
-                            dialog.show()
-                        }
-                    } catch (e: Exception) {
-                        Log.e("TAG", "PARSE ERROR" + e.message)
+                binding.txtWarning.text = message
+                // txtTitle.setText(context.getString(R.string.general_error))
+                try {
+                    if (!dialog.isShowing) {
+                        dialog.window!!
+                            .setLayout(
+                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT
+                            )
+                        dialog.show()
                     }
+                } catch (e: Exception) {
+                    Log.e("TAG", "PARSE ERROR" + e.message)
+                }
                 binding.btnOkWarning.setOnClickListener {
                     dialog.dismiss()
                     alertDialogCallback.onOkClick()
@@ -76,11 +82,12 @@ class Utility {
                 dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 dialog.setCancelable(cancelable)
                 dialog.setCanceledOnTouchOutside(cancelable)
-                val binding : DialoNoInternetBinding = DialoNoInternetBinding.inflate(LayoutInflater.from(context))
+                val binding: DialoNoInternetBinding =
+                    DialoNoInternetBinding.inflate(LayoutInflater.from(context))
                 dialog.setContentView(binding.root)
 
 
-               binding.txtWarning.text = message
+                binding.txtWarning.text = message
                 binding.txtHeader.text = context.getString(R.string.no_internet_header)
 
                 binding.btnOkWarning.setOnClickListener {

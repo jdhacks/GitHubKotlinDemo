@@ -49,7 +49,6 @@ class GitRepoAdapter(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item: Owner? = repoList[position].getOwner()
-        Log.d("okhttp", "oneshot: response" + Gson().toJson(item))
 
         holder.txtUserName.text = item?.getLogin()
         if (item?.getAvatarUrl() != null) Glide.with(context!!)

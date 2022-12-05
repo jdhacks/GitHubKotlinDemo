@@ -1,5 +1,6 @@
 package com.github.githubmvvmdemo.ui
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.github.githubmvvmdemo.databinding.ActivitySplashBinding
 import com.github.githubmvvmdemo.utils.AppConstant
 
+@SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySplashBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,6 +20,7 @@ class SplashActivity : AppCompatActivity() {
         goToMainEntryScreen()
 
     }
+
     // we used the postDelayed(Runnable, time) method
     // to redirect to home screen.
     private fun goToMainEntryScreen() {

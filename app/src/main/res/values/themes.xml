@@ -10,7 +10,7 @@
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
 
@@ -21,12 +21,14 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/_16ssp</item>
     </style>
+
     <style name="tvStyleRegulardialog">
         <item name="android:layout_width">match_parent</item>
         <item name="fontFamily">@font/f37_ginger_regular_en</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/_16ssp</item>
     </style>
+
     <style name="my_button" parent="Base.Widget.AppCompat.Button">
         <item name="colorButtonNormal">@color/colorPrimary</item>
         <item name="colorControlActivated">@color/colorPrimaryDark</item>
@@ -36,6 +38,7 @@
         <item name="colorControlHighlight">@color/colorAccent</item>
         <item name="android:textSize">@dimen/_16ssp</item>
     </style>
+
     <style name="tvStyleBold">
         <item name="android:layout_width">match_parent</item>
         <item name="android:textColor">@color/black</item>
@@ -52,6 +55,7 @@
         <item name="android:textColorSecondary">@color/colorPrimary</item>
         <item name="android:windowDisablePreview">true</item>
     </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

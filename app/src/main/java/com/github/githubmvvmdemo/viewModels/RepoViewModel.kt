@@ -25,7 +25,7 @@ class RepoViewModel : ViewModel() {
     }
 
                fun getTrendingRepoList( apiResponseCallback : ApiResponseCallback ) : LiveData<List<Item>>   {
-                   ApiClient.getClient().create(ApiService::class.java).getReposSearchList(Utility.getDateBeforeTwomonth()).enqueue(object  : Callback<GithubSearch> {
+                   ApiClient.getClient().getReposSearchList(Utility.getDateBeforeTwomonth()).enqueue(object  : Callback<GithubSearch> {
                            override fun onResponse(call: Call<GithubSearch>, response: Response<GithubSearch>) {
                                if (response.body()!=null){
                                     itemsLiveData.value = response.body()?.getItems().orEmpty()
