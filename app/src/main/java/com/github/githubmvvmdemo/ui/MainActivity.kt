@@ -1,6 +1,5 @@
-package com.github.githubmvvmdemo
+package com.github.githubmvvmdemo.ui
 
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -10,11 +9,11 @@ import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.github.githubmvvmdemo.Adapters.GitRepoAdapter
+import com.github.githubmvvmdemo.R
+import com.github.githubmvvmdemo.adapters.GitRepoAdapter
 import com.github.githubmvvmdemo.ViewModels.RepoViewModel
-import com.github.githubmvvmdemo.data.Item
+import com.github.githubmvvmdemo.dataSources.remote.Item
 import com.github.githubmvvmdemo.databinding.ActivityMainBinding
-import com.github.githubmvvmdemo.utils.AppConstant
 import com.github.githubmvvmdemo.utils.Utility
 
 class MainActivity : AppCompatActivity() {
@@ -30,51 +29,53 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         showShimmer()
-        viewModel = ViewModelProvider(this)[RepoViewModel::class.java]
-        viewModel.getTrendingRepoList()
+        prepareRecyclerView()
+        Handler(Looper.getMainLooper()).postDelayed({
+                  FetchDataAndSetData()
+                  SetUpSearch()
+        }, 3000)
+
+    }
+    fun SetDataInListView()  {
+        viewModel.observLiveData().observe(this@MainActivity, { repoList ->
+            movieAdapter.setRepoList(repoList as ArrayList<Item>)
+        })
+    }
+    fun SetUpSearch()  {
+
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(s: String): Boolean {
-                if (!s.isEmpty() && s != null) {
+                if (!s.isEmpty()) {
                     findInLiveData(s)
                 } else {
-                    viewModel.observLiveData().observe(this@MainActivity, Observer { repoList ->
-                        movieAdapter.setRepoList(repoList as ArrayList<Item>)
-                    })
+                    SetDataInListView()
                 }
                 return false
             }
 
             override fun onQueryTextChange(s: String): Boolean {
-                if (!s.isEmpty() && s != null) {
+                if (!s.isEmpty()) {
                     findInLiveData(s)
                 } else {
-                    viewModel.observLiveData().observe(this@MainActivity, Observer { repoList ->
-                        movieAdapter.setRepoList(repoList as ArrayList<Item>)
-                    })
+                    SetDataInListView()
                 }
                 return false
             }
         })
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            prepareRecyclerView()
-
-                        if(viewModel.ItemsLiveData.value!=null) {
-                viewModel.observLiveData().observe(this, Observer { repoList ->
-                    movieAdapter.setRepoList(repoList as ArrayList<Item>)
-                })
-                hideShimmer()
-            }else{
-                viewModel.observLiveData().observe(this, Observer { repoList ->
-                    movieAdapter.setRepoList(repoList as ArrayList<Item>)
-                })
-                hideShimmer()
-            }
-
-        }, 3000)
-
     }
 
+    fun FetchDataAndSetData()  {
+
+        viewModel = ViewModelProvider(this)[RepoViewModel::class.java]
+        viewModel.getTrendingRepoList()
+
+        if(viewModel.ItemsLiveData.value!=null) {
+            SetDataInListView()
+            hideShimmer()
+        }
+
+    }
     fun showShimmer()  {
         binding.shimmer.startShimmer()
         binding.shimmer.visibility = View.VISIBLE
@@ -92,9 +93,9 @@ class MainActivity : AppCompatActivity() {
         binding.searchViewCard.visibility=View.VISIBLE
     }
     fun findInLiveData(key : String)  {
-        var repoSearchlist : ArrayList<Item> = java.util.ArrayList<Item>()
+        val repoSearchlist : ArrayList<Item> = java.util.ArrayList<Item>()
 
-        viewModel.observLiveData().observe(this, Observer { repoList ->
+        viewModel.observLiveData().observe(this, { repoList ->
             for (user in repoList) {
                 if (user.getOwner()!!.getLogin()!!.contains(key)) {
                     repoSearchlist.add(user)
@@ -105,7 +106,7 @@ class MainActivity : AppCompatActivity() {
         })
         if(repoSearchlist.size>0)
         {
-            viewModel.ItemsLiveSearchData.observe(this@MainActivity, Observer { repoList ->
+            viewModel.ItemsLiveSearchData.observe(this@MainActivity, { repoList ->
                 movieAdapter.setRepoList(repoList as ArrayList<Item>)
             })
         }else{
@@ -114,7 +115,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun prepareRecyclerView() {
-        movieAdapter = GitRepoAdapter(ArrayList<Item>(),this);
+        movieAdapter = GitRepoAdapter(ArrayList<Item>(),this)
         binding.rvRepos.apply {
             layoutManager = GridLayoutManager(applicationContext,1)
             adapter = movieAdapter
