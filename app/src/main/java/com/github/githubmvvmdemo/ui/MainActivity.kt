@@ -6,12 +6,11 @@ import android.os.Looper
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.github.githubmvvmdemo.Adapters.GitRepoAdapter
 import com.github.githubmvvmdemo.R
-import com.github.githubmvvmdemo.ViewModels.RepoViewModel
+import com.github.githubmvvmdemo.viewModels.RepoViewModel
 import com.github.githubmvvmdemo.dataSources.remote.Item
 import com.github.githubmvvmdemo.dataSources.remote.Owner
 import com.github.githubmvvmdemo.databinding.ActivityMainBinding
