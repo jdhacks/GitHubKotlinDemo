@@ -145,11 +145,11 @@ class MainActivity : AppCompatActivity(), ItemSelectionCallback, AlertDialogCall
 
     override fun onClick(item: Owner?, position: Int) {
         if (item?.getSelected() == true) {
-            viewModel.itemsLiveData.value?.get(position)?.getOwner()?.setSelected(true)
+            viewModel.itemsLiveData.value?.get(position)?.getOwner()?.setSelected(false)
             item.setSelected(false)
         } else {
             viewModel.itemsLiveData.value?.get(position)?.getOwner()?.setSelected(true)
-            item?.setSelected(false)
+            item?.setSelected(true)
         }
         repoAdapter.notifyItemChanged(position)
     }

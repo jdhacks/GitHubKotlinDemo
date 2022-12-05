@@ -62,22 +62,27 @@ class GitRepoAdapter(
         } else {
             holder.imgSelected.setImageResource(R.drawable.ic_unselected)
         }
-        setUpClickListener(item, holder.adapterPosition)
-    }
-
-    private fun setUpClickListener(item : Owner?, position : Int )
-    {
-        bindingAdapt.selectedImg.setOnClickListener {
-
-            itemSelectionCallback.onClick(item, position)
-
+        holder.imgSelected.setOnClickListener {
+            if (item?.getSelected() == true) {
+                holder.imgSelected.setImageResource(R.drawable.ic_unselected)
+            } else {
+                holder.imgSelected.setImageResource(R.drawable.ic_selected)
+            }
+            itemSelectionCallback.onClick(item , position)
         }
-        bindingAdapt.cardView1.setOnLongClickListener {
+        holder.carditem.setOnLongClickListener {
+            if (item?.getSelected() == true) {
+                holder.imgSelected.setImageResource(R.drawable.ic_unselected)
+            } else {
+                holder.imgSelected.setImageResource(R.drawable.ic_selected)
+            }
             itemSelectionCallback.onClick(item , position)
             false
         }
-
     }
+
+
+
     override fun getItemCount(): Int {
         return repoList.size
     }
@@ -87,7 +92,7 @@ class GitRepoAdapter(
         val imgSelected: ImageView
         val txtUserName: AppCompatTextView
         private var root1: ConstraintLayout
-        private var carditem: CardView
+        var carditem: CardView
 
         init {
             imgSelected = bindingAdapt.selectedImg
