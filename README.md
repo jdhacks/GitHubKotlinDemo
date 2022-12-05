@@ -6,7 +6,7 @@ Retrofit
 
 Kotlin
 
-MVvm Architecture
+MVVM Architecture
 
 Shimmer Effect(to show loading data nicely)
 
