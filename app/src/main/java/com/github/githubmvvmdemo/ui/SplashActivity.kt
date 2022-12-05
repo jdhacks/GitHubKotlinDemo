@@ -19,19 +19,12 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
-       // goToMainEntryScreen()
-        window.setFlags(
-            LayoutParams.FLAG_FULLSCREEN,
-            LayoutParams.FLAG_FULLSCREEN
-        )
-        goToMainEntryScreen()
-        // we used the postDelayed(Runnable, time) method
-        // to send a message with a delayed time.
-        //Normal Handler is deprecated , so we have to change the code little bit
 
-        // Handler().postDelayed({
+        goToMainEntryScreen()
 
     }
+    // we used the postDelayed(Runnable, time) method
+    // to redirect to home screen.
     private fun goToMainEntryScreen() {
         Handler(Looper.getMainLooper()).postDelayed({
             val intent = Intent(this, MainActivity::class.java)

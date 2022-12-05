@@ -8,6 +8,7 @@
     <string name="no_internet">Make sure your device is connected to internet</string>
     <string name="somethings_went_wrong">Something Wemt Wrong</string>
     <string name="lbl_ok">OK</string>
+    <string name="lbl_retry">Try Again</string>
     <string name="no_internet_header">No Internet Connection</string>
 
     <string name="lbl_no_data">No Repos Found</string>

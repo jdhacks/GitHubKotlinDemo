@@ -6,6 +6,8 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.util.Log
 import android.view.Gravity
 import android.view.View
@@ -15,39 +17,34 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.github.githubmvvmdemo.R
+import com.github.githubmvvmdemo.interfaces.AlertDialogCallback
 import java.text.SimpleDateFormat
 import java.util.*
 
 class Utility {
 
     companion object {
-        fun isNetworkAvailable(context: Context?): Boolean {
-            return if (context != null) {
-                val connectivityManager =
-                    context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-                val activeNetworkInfo = connectivityManager.activeNetworkInfo
-                activeNetworkInfo != null && activeNetworkInfo.isConnected
-            } else {
-                false
-            }
-        }
 
-        fun alertDialog(context: Activity?, message: String?, cancelable: Boolean) {
+
+        fun alertDialog(context: Activity?, message: String?, cancelable: Boolean, alertDialogCallback: AlertDialogCallback) {
             if (context != null) {
                 val dialog = Dialog(context)
-                dialog?.window!!
+                dialog.window!!
                     .setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 dialog.setCancelable(cancelable)
                 dialog.setCanceledOnTouchOutside(cancelable)
                 /*dialog.requestWindowFeature(Window.FEATURE_NO_TITLE) */
-                /*dialog.getWindow().setGravity(Gravity.TOP) */dialog.setContentView(R.layout.dialog_warning)
+                /*dialog.getWindow().setGravity(Gravity.TOP) */
+                dialog.setContentView(R.layout.dialog_warning)
                 val txtTitle: AppCompatTextView
+                val retry_button: AppCompatTextView
+                retry_button = dialog.findViewById(R.id.btnRetryWarning)
                 val yes_button: AppCompatTextView
                 yes_button = dialog.findViewById(R.id.btnokWarning)
                 txtTitle = dialog.findViewById(R.id.txt_warning)
-                if (com.github.githubmvvmdemo.utils.Utility.isNetworkAvailable(context)) {
+
                     txtTitle.text = message
-                    // txtTitle.setText(context.getString(R.string.general_error)) 
+                    // txtTitle.setText(context.getString(R.string.general_error))
                     try {
                         if (!dialog.isShowing) {
                             dialog.window!!
@@ -60,17 +57,13 @@ class Utility {
                     } catch (e: Exception) {
                         Log.e("TAG", "PARSE ERROR" + e.message)
                     }
-                } else {
-
-                    nointernetAlertDialog(
-                        context,
-                        context.getString(R.string.no_internet),
-                        false
-                    ) {
-                    }
-                }
                 yes_button.setOnClickListener {
                     dialog.dismiss()
+                    alertDialogCallback.onOkClick()
+                }
+                retry_button.setOnClickListener {
+                    dialog.dismiss()
+                    alertDialogCallback.onRetryClick()
                 }
             }
         }
@@ -79,7 +72,7 @@ class Utility {
             context: Context?,
             message: String?,
             cancelable: Boolean,
-            alertDialogCallback: () -> Unit
+            alertDialogCallback: AlertDialogCallback
         ) {
             if (context != null) {
                 val dialog = Dialog(context)
@@ -92,12 +85,20 @@ class Utility {
                 val txt_header: AppCompatTextView
                 val btnokWarning: AppCompatTextView
                 btnokWarning = dialog.findViewById(R.id.btnokWarning)
+                val btnretryWarning: AppCompatTextView
+                btnretryWarning = dialog.findViewById(R.id.btnRetryWarning)
                 txt_header = dialog.findViewById(R.id.txt_header)
                 txt_warning = dialog.findViewById(R.id.txt_warning)
                 txt_warning.text = message
                 txt_header.text = context.getString(R.string.no_internet_header)
-                btnokWarning.setOnClickListener { v: View? ->
+
+                btnokWarning.setOnClickListener {
                     dialog.dismiss()
+                    alertDialogCallback.onOkClick()
+                }
+                btnretryWarning.setOnClickListener {
+                    dialog.dismiss()
+                    alertDialogCallback.onRetryClick()
                 }
                 try {
                     if (!dialog.isShowing) {
@@ -124,12 +125,32 @@ class Utility {
             val calendar = Calendar.getInstance()
             calendar.add(Calendar.MONTH, -2)
             val date = calendar.time
-            val format = SimpleDateFormat("yyyy-MM-dd")
+            val format = SimpleDateFormat("yyyy-MM-dd", Locale.US)
             val dateOutput = format.format(date)
             return dateOutput
         }
 
-        fun getCircularProgressDrawable(context: Context): CircularProgressDrawable? {
+
+        fun isInternetAvailable(context: Context): Boolean {
+            var result = false
+            val connectivityManager =
+                context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                val networkCapabilities = connectivityManager.activeNetwork ?: return false
+                val actNw =
+                    connectivityManager.getNetworkCapabilities(networkCapabilities) ?: return false
+                result = when {
+                    actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+                    actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+                    actNw.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+                    else -> false
+                }
+            }
+
+            return result
+        }
+
+        fun getCircularProgressDrawable(context: Context): CircularProgressDrawable {
             val circularProgressDrawable = CircularProgressDrawable(context)
             circularProgressDrawable.setStyle(CircularProgressDrawable.DEFAULT)
             circularProgressDrawable.setColorSchemeColors(

@@ -2,7 +2,7 @@ package com.github.githubmvvmdemo.interfaces
 
 import com.github.githubmvvmdemo.dataSources.remote.Owner
 
-interface AlertDialogCallback {
-    fun onOkClick()
-    fun onRetryClick()
+interface ApiResponseCallback {
+    fun onSuccess()
+    fun onFailed(errorMessage : String)
 }

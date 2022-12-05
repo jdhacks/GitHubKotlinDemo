@@ -8,48 +8,65 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.github.githubmvvmdemo.adapters.GitRepoAdapter
 import com.github.githubmvvmdemo.R
-import com.github.githubmvvmdemo.viewModels.RepoViewModel
+import com.github.githubmvvmdemo.adapters.GitRepoAdapter
 import com.github.githubmvvmdemo.dataSources.remote.Item
 import com.github.githubmvvmdemo.dataSources.remote.Owner
 import com.github.githubmvvmdemo.databinding.ActivityMainBinding
+import com.github.githubmvvmdemo.interfaces.AlertDialogCallback
+import com.github.githubmvvmdemo.interfaces.ApiResponseCallback
 import com.github.githubmvvmdemo.interfaces.ItemSelectionCallback
 import com.github.githubmvvmdemo.utils.Utility
+import com.github.githubmvvmdemo.viewModels.RepoViewModel
 
-class MainActivity : AppCompatActivity() ,  ItemSelectionCallback {
-    lateinit var binding : ActivityMainBinding
-    companion object{
-         lateinit var viewModel: RepoViewModel
+class MainActivity : AppCompatActivity(), ItemSelectionCallback, AlertDialogCallback,
+    ApiResponseCallback {
+    lateinit var binding: ActivityMainBinding
 
+    companion object {
+        lateinit var viewModel: RepoViewModel
     }
-    private lateinit var repoAdapter : GitRepoAdapter
+
+    private lateinit var repoAdapter: GitRepoAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        showShimmer()
+         showShimmer()
         prepareRecyclerView()
+        fetchData()
         Handler(Looper.getMainLooper()).postDelayed({
-                  FetchDataAndSetData()
-                  SetUpSearch()
+            setUpSearch()
+            setDataInListView()
+            hideShimmer()
         }, 3000)
 
     }
-    fun SetDataInListView()  {
+
+    fun checkNetworkConnection() : Boolean{
+        viewModel = ViewModelProvider(this)[RepoViewModel::class.java]
+
+        viewModel.isNetworkAvailable = Utility.isInternetAvailable(this)
+
+        return viewModel.isNetworkAvailable
+    }
+
+    fun setDataInListView() {
         viewModel.observLiveData().observe(this@MainActivity, { repoList ->
             repoAdapter.setRepoList(repoList as ArrayList<Item>)
+            hideShimmer()
         })
     }
-    fun SetUpSearch()  {
+
+    fun setUpSearch() {
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(s: String): Boolean {
                 if (!s.isEmpty()) {
                     findInLiveData(s)
                 } else {
-                    SetDataInListView()
+                    setDataInListView()
                 }
                 return false
             }
@@ -58,7 +75,7 @@ class MainActivity : AppCompatActivity() ,  ItemSelectionCallback {
                 if (!s.isEmpty()) {
                     findInLiveData(s)
                 } else {
-                    SetDataInListView()
+                    setDataInListView()
                 }
                 return false
             }
@@ -66,74 +83,100 @@ class MainActivity : AppCompatActivity() ,  ItemSelectionCallback {
 
     }
 
-    fun FetchDataAndSetData()  {
+    fun fetchData() {
+        if(checkNetworkConnection()) {
+            viewModel.getTrendingRepoList(this)
+        }else{
+            Utility.nointernetAlertDialog(
+                this,
+                getString(R.string.no_internet),
+                false,
+                this)
 
-        viewModel = ViewModelProvider(this)[RepoViewModel::class.java]
-        viewModel.getTrendingRepoList()
-
-        if(viewModel.itemsLiveData.value!=null) {
-            SetDataInListView()
-            hideShimmer()
         }
 
     }
-    fun showShimmer()  {
+
+    fun showShimmer() {
         binding.shimmer.startShimmer()
         binding.shimmer.visibility = View.VISIBLE
         //Utility.showProgress(getActivity()) 
         //Utility.showProgress(getActivity()) 
         binding.rvRepos.visibility = View.GONE
-        binding.searchViewCard.visibility=View.GONE
+        binding.searchViewCard.visibility = View.GONE
     }
-    fun hideShimmer()  {
+
+    fun hideShimmer() {
         binding.shimmer.stopShimmer()
         binding.shimmer.visibility = View.GONE
         //Utility.showProgress(getActivity()) 
         //Utility.showProgress(getActivity()) 
         binding.rvRepos.visibility = View.VISIBLE
-        binding.searchViewCard.visibility=View.VISIBLE
+        binding.searchViewCard.visibility = View.VISIBLE
     }
+
     //find the repo using name
-    fun findInLiveData(key : String)  {
-        val repoSearchlist : ArrayList<Item> = java.util.ArrayList<Item>()
+    fun findInLiveData(key: String) {
+        val repoSearchlist: ArrayList<Item> = java.util.ArrayList<Item>()
 
         viewModel.observLiveData().observe(this, { repoList ->
             for (user in repoList) {
                 if (user.getOwner()?.getLogin()?.contains(key) == true) {
                     repoSearchlist.add(user)
-                    viewModel.itemsLiveSearchData.value=
+                    viewModel.itemsLiveSearchData.value =
                         repoSearchlist // return member when name found
                 }
             }
         })
-        if(repoSearchlist.size>0)
-        {
+        if (repoSearchlist.size > 0) {
             viewModel.itemsLiveSearchData.observe(this@MainActivity, { repoList ->
                 repoAdapter.setRepoList(repoList as ArrayList<Item>)
             })
-        }else{
-            Utility.displayMessage(this,getString(R.string.lbl_no_data))
+        } else {
+            Utility.displayMessage(this, getString(R.string.lbl_no_data))
         }
     }
 
-   
+
     private fun prepareRecyclerView() {
-        repoAdapter = GitRepoAdapter(ArrayList<Item>(),this,this)
+        repoAdapter = GitRepoAdapter(ArrayList<Item>(), this, this)
         binding.rvRepos.apply {
-            layoutManager = GridLayoutManager(applicationContext,1)
+            layoutManager = GridLayoutManager(applicationContext, 1)
             adapter = repoAdapter
         }
     }
 
     override fun onClick(item: Owner?, position: Int) {
-        if (item?.getSelected()==true) {
+        if (item?.getSelected() == true) {
             viewModel.itemsLiveData.value?.get(position)?.getOwner()?.setSelected(true)
-            item?.setSelected(false)
+            item.setSelected(false)
         } else {
             viewModel.itemsLiveData.value?.get(position)?.getOwner()?.setSelected(true)
             item?.setSelected(false)
         }
         repoAdapter.notifyItemChanged(position)
+    }
+
+    override fun onOkClick() {
+        //dismiss dialog
+    }
+
+    override fun onRetryClick() {
+        showShimmer()
+        fetchData()
+        setDataInListView()
+    }
+
+    override fun onSuccess() {
+       Utility.displayMessage(this,"Enjoy browsing")
+    }
+
+    override fun onFailed(errorMessage : String) {
+        Utility.alertDialog(
+            this,
+            errorMessage,
+            false,
+            this)
     }
 
 

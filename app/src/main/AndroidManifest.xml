@@ -9,11 +9,13 @@
 
     <application
          android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:label="@string/app_name"
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.GithubMvvmDemo">
         <activity
             android:name=".ui.SplashActivity"
+            android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="screenSize|orientation|screenLayout"
             android:exported="true" >
             <intent-filter>
