@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.github.githubmvvmdemo.Adapters.GitRepoAdapter
+import com.github.githubmvvmdemo.adapters.GitRepoAdapter
 import com.github.githubmvvmdemo.R
 import com.github.githubmvvmdemo.viewModels.RepoViewModel
 import com.github.githubmvvmdemo.dataSources.remote.Item
