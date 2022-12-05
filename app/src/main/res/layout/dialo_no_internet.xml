@@ -19,7 +19,7 @@
         android:contentDescription="@string/app_name" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/txt_header"
+        android:id="@+id/txtHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/_4sdp"
@@ -28,7 +28,7 @@
         android:textSize="@dimen/_13sdp" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/txt_warning"
+        android:id="@+id/txtWarning"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/_10sdp"
@@ -49,7 +49,7 @@
         android:orientation="horizontal"
         >
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/btnokWarning"
+            android:id="@+id/btnOkWarning"
             android:theme="@style/my_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
             android:layout_margin="@dimen/_5sdp"
             android:text="@string/lbl_ok"
             android:padding="@dimen/_5sdp"
-            android:textSize="@dimen/_18ssp" />
+            android:textSize="@dimen/_14ssp" />
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/btnRetryWarning"
             android:theme="@style/my_button"
@@ -67,7 +67,7 @@
             android:layout_gravity="center"
             android:text="@string/lbl_retry"
             android:padding="@dimen/_5sdp"
-            android:textSize="@dimen/_18ssp" />
+            android:textSize="@dimen/_15ssp" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </LinearLayout>

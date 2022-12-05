@@ -2,6 +2,7 @@ package com.github.githubmvvmdemo.domain
 
 import com.google.gson.GsonBuilder
 import okhttp3.*
+import okhttp3.ResponseBody.Companion.toResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -41,17 +42,15 @@ class ApiClient {
                     }
 
                     response = response?.newBuilder()?.body(
-                        ResponseBody.create(
-                            response.body?.contentType(),
-                            responceString!!
-                        )
+                        responceString!!
+                            .toResponseBody(response.body?.contentType())
                     )?.build()
                     response!!
                 }.protocols(
                     arrayListOf(Protocol.HTTP_1_1)
                 ).build()
 
-            var url = com.github.githubmvvmdemo.BuildConfig.SERVICE_API_URL
+            val url = com.github.githubmvvmdemo.BuildConfig.SERVICE_API_URL
 
 
             return Retrofit.Builder().addCallAdapterFactory(RxJava2CallAdapterFactory.create())

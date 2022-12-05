@@ -10,7 +10,7 @@ interface ApiService {
 
 
     @GET(ApiConstant.REPO)
-    fun GetReposSearchList(
+    fun getReposSearchList(
         @Query("q") q: String? = "created:'>2022-09-18'",
         @Query("sort") sort1: String? = "updated",
     @Query("order") order1: String? = "desc",

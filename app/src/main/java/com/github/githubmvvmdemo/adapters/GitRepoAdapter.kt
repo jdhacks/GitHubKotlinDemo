@@ -19,7 +19,6 @@ import com.github.githubmvvmdemo.dataSources.remote.Item
 import com.github.githubmvvmdemo.dataSources.remote.Owner
 import com.github.githubmvvmdemo.databinding.ItemSearchRepoBinding
 import com.github.githubmvvmdemo.interfaces.ItemSelectionCallback
-import com.github.githubmvvmdemo.ui.MainActivity
 import com.github.githubmvvmdemo.utils.Utility
 import com.google.gson.Gson
 
@@ -29,6 +28,7 @@ class GitRepoAdapter(
     fragmentActivity: AppCompatActivity
 )  :
     RecyclerView.Adapter<GitRepoAdapter.MyViewHolder>()  {
+    private lateinit var bindingAdapt: ItemSearchRepoBinding
     private var repoList: ArrayList<Item>
     private var itemSelectionCallback: ItemSelectionCallback
     private var context: Context? = null
@@ -40,12 +40,9 @@ class GitRepoAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         context = parent.context
+        bindingAdapt = ItemSearchRepoBinding.inflate(LayoutInflater.from(parent.context))
         return MyViewHolder(
-            ItemSearchRepoBinding.inflate(
-                LayoutInflater.from(
-                    parent.context
-                )
-            ).root
+            bindingAdapt.root
         )
     }
 
@@ -53,29 +50,35 @@ class GitRepoAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item: Owner? = repoList[position].getOwner()
         Log.d("okhttp", "oneshot: response" + Gson().toJson(item))
-        if (item?.getSelected() == true) {
-            holder.imgSelected.setImageResource(R.drawable.ic_selected)
-        } else {
-            holder.imgSelected.setImageResource(R.drawable.ic_unselected)
-        }
-        holder.imgSelected.setOnClickListener {
 
-            itemSelectionCallback.onClick(item, holder.adapterPosition)
-
-        }
-        holder.carditem.setOnLongClickListener {
-            itemSelectionCallback.onClick(item , holder.adapterPosition)
-            false
-        }
-        holder.txtUserName.setText(item?.getLogin())
+        holder.txtUserName.text = item?.getLogin()
         if (item?.getAvatarUrl() != null) Glide.with(context!!)
             .load(item.getAvatarUrl())
             .placeholder(Utility.getCircularProgressDrawable(context!!))
             .error(R.drawable.ic_user_img)
             .apply(RequestOptions().fitCenter())
             .apply(RequestOptions()).into(holder.imgUser)
+        if (item?.getSelected() == true) {
+            holder.imgSelected.setImageResource(R.drawable.ic_selected)
+        } else {
+            holder.imgSelected.setImageResource(R.drawable.ic_unselected)
+        }
+        setUpClickListener(item, holder.adapterPosition)
     }
 
+    private fun setUpClickListener(item : Owner?, position : Int )
+    {
+        bindingAdapt.selectedImg.setOnClickListener {
+
+            itemSelectionCallback.onClick(item, position)
+
+        }
+        bindingAdapt.cardView1.setOnLongClickListener {
+            itemSelectionCallback.onClick(item , position)
+            false
+        }
+
+    }
     override fun getItemCount(): Int {
         return repoList.size
     }
@@ -84,15 +87,15 @@ class GitRepoAdapter(
         val imgUser: ImageView
         val imgSelected: ImageView
         val txtUserName: AppCompatTextView
-        var root1: ConstraintLayout
-        var carditem: CardView
+        private var root1: ConstraintLayout
+        private var carditem: CardView
 
         init {
-            imgSelected = itemView.findViewById(R.id.selectedImg)
-            imgUser = itemView.findViewById(R.id.imgUser)
-            txtUserName = itemView.findViewById(R.id.txtUserName)
-            root1 = itemView.findViewById(R.id.root1)
-            carditem = itemView.findViewById(R.id.cardView1)
+            imgSelected = bindingAdapt.selectedImg
+            imgUser = bindingAdapt.imgUser
+            txtUserName = bindingAdapt.txtUserName
+            root1 = bindingAdapt.root1
+            carditem = bindingAdapt.cardView1
         }
     }
 

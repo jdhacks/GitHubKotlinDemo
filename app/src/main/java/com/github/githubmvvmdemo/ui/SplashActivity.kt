@@ -1,15 +1,10 @@
 package com.github.githubmvvmdemo.ui
 
 import android.content.Intent
-import android.os.Binder
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.WindowManager
-import android.view.WindowManager.LayoutParams
 import androidx.appcompat.app.AppCompatActivity
-import com.github.githubmvvmdemo.ui.MainActivity
-import com.github.githubmvvmdemo.R
 import com.github.githubmvvmdemo.databinding.ActivitySplashBinding
 import com.github.githubmvvmdemo.utils.AppConstant
 

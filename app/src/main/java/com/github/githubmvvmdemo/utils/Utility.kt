@@ -10,13 +10,16 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import android.util.Log
 import android.view.Gravity
-import android.view.View
+import android.view.LayoutInflater
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
+import androidx.core.content.getSystemService
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.github.githubmvvmdemo.R
+import com.github.githubmvvmdemo.databinding.DialoNoInternetBinding
+import com.github.githubmvvmdemo.databinding.DialogWarningBinding
 import com.github.githubmvvmdemo.interfaces.AlertDialogCallback
 import java.text.SimpleDateFormat
 import java.util.*
@@ -33,17 +36,11 @@ class Utility {
                     .setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 dialog.setCancelable(cancelable)
                 dialog.setCanceledOnTouchOutside(cancelable)
-                /*dialog.requestWindowFeature(Window.FEATURE_NO_TITLE) */
-                /*dialog.getWindow().setGravity(Gravity.TOP) */
-                dialog.setContentView(R.layout.dialog_warning)
-                val txtTitle: AppCompatTextView
-                val retry_button: AppCompatTextView
-                retry_button = dialog.findViewById(R.id.btnRetryWarning)
-                val yes_button: AppCompatTextView
-                yes_button = dialog.findViewById(R.id.btnokWarning)
-                txtTitle = dialog.findViewById(R.id.txt_warning)
+                val binding : DialogWarningBinding = DialogWarningBinding.inflate(LayoutInflater.from(context))
+                dialog.setContentView(binding.root)
 
-                    txtTitle.text = message
+
+                    binding.txtWarning.text = message
                     // txtTitle.setText(context.getString(R.string.general_error))
                     try {
                         if (!dialog.isShowing) {
@@ -57,11 +54,11 @@ class Utility {
                     } catch (e: Exception) {
                         Log.e("TAG", "PARSE ERROR" + e.message)
                     }
-                yes_button.setOnClickListener {
+                binding.btnOkWarning.setOnClickListener {
                     dialog.dismiss()
                     alertDialogCallback.onOkClick()
                 }
-                retry_button.setOnClickListener {
+                binding.btnRetryWarning.setOnClickListener {
                     dialog.dismiss()
                     alertDialogCallback.onRetryClick()
                 }
@@ -79,24 +76,18 @@ class Utility {
                 dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 dialog.setCancelable(cancelable)
                 dialog.setCanceledOnTouchOutside(cancelable)
-                /*dialog.requestWindowFeature(Window.FEATURE_NO_TITLE) */
-                /*dialog.getWindow().setGravity(Gravity.TOP) */dialog.setContentView(R.layout.dialo_no_internet)
-                val txt_warning: AppCompatTextView
-                val txt_header: AppCompatTextView
-                val btnokWarning: AppCompatTextView
-                btnokWarning = dialog.findViewById(R.id.btnokWarning)
-                val btnretryWarning: AppCompatTextView
-                btnretryWarning = dialog.findViewById(R.id.btnRetryWarning)
-                txt_header = dialog.findViewById(R.id.txt_header)
-                txt_warning = dialog.findViewById(R.id.txt_warning)
-                txt_warning.text = message
-                txt_header.text = context.getString(R.string.no_internet_header)
+                val binding : DialoNoInternetBinding = DialoNoInternetBinding.inflate(LayoutInflater.from(context))
+                dialog.setContentView(binding.root)
 
-                btnokWarning.setOnClickListener {
+
+               binding.txtWarning.text = message
+                binding.txtHeader.text = context.getString(R.string.no_internet_header)
+
+                binding.btnOkWarning.setOnClickListener {
                     dialog.dismiss()
                     alertDialogCallback.onOkClick()
                 }
-                btnretryWarning.setOnClickListener {
+                binding.btnRetryWarning.setOnClickListener {
                     dialog.dismiss()
                     alertDialogCallback.onRetryClick()
                 }
@@ -121,13 +112,12 @@ class Utility {
         }
 
 
-        fun GetDateBeforeTwomonth(): String {
+        fun getDateBeforeTwomonth(): String {
             val calendar = Calendar.getInstance()
             calendar.add(Calendar.MONTH, -2)
             val date = calendar.time
             val format = SimpleDateFormat("yyyy-MM-dd", Locale.US)
-            val dateOutput = format.format(date)
-            return dateOutput
+            return format.format(date)
         }
 
 

@@ -12,10 +12,10 @@
     <color name="colorPrimaryDark">#6200EE</color>
     <color name="colorAccent">#03DAC5</color>
 
-    <color name="shimmerlaycolor">#ECECEC</color>
-    <color name="gray_ececec">#ECECEC</color>
+    <color name="shimmerLayColor">#ECECEC</color>
+    <color name="gray_back">#ECECEC</color>
 
-    <color name="shimmerbggray">#FFFFFF</color>
+    <color name="shimmerBgGray">#FFFFFF</color>
     <color name="separate_grey">#cfcfcf</color>
 
 

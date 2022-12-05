@@ -21,8 +21,8 @@ import com.github.githubmvvmdemo.viewModels.RepoViewModel
 
 class MainActivity : AppCompatActivity(), ItemSelectionCallback, AlertDialogCallback,
     ApiResponseCallback {
-    lateinit var binding: ActivityMainBinding
-    lateinit var viewModel: RepoViewModel
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var viewModel: RepoViewModel
 
     private lateinit var repoAdapter: GitRepoAdapter
 
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity(), ItemSelectionCallback, AlertDialogCall
 
     }
 
-    fun checkNetworkConnection() : Boolean{
+    private fun checkNetworkConnection() : Boolean{
         viewModel = ViewModelProvider(this)[RepoViewModel::class.java]
 
         viewModel.isNetworkAvailable = Utility.isInternetAvailable(this)
@@ -51,20 +51,20 @@ class MainActivity : AppCompatActivity(), ItemSelectionCallback, AlertDialogCall
         return viewModel.isNetworkAvailable
     }
 
-    fun setDataInListView() {
-        viewModel.itemsLiveData.observe(this@MainActivity, { repoList ->
+    private fun setDataInListView() {
+        viewModel.itemsLiveData.observe(this@MainActivity) { repoList ->
             repoAdapter.setRepoList(repoList as ArrayList<Item>)
             hideShimmer()
-        })
+        }
     }
     fun setSearchOperation(s: String) {
-        if (!s.isEmpty()) {
+        if (s.isNotEmpty()) {
             findInLiveData(s)
         } else {
             setDataInListView()
         }
     }
-    fun setUpSearch() {
+    private fun setUpSearch() {
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(s: String): Boolean {
@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity(), ItemSelectionCallback, AlertDialogCall
 
     }
 
-    fun fetchData() {
+    private fun fetchData() {
         if(checkNetworkConnection()) {
             viewModel.getTrendingRepoList(this)
         }else{
@@ -94,7 +94,7 @@ class MainActivity : AppCompatActivity(), ItemSelectionCallback, AlertDialogCall
 
     }
 
-    fun showShimmer() {
+    private fun showShimmer() {
         binding.shimmer.startShimmer()
         binding.shimmer.visibility = View.VISIBLE
         //Utility.showProgress(getActivity()) 
@@ -103,7 +103,7 @@ class MainActivity : AppCompatActivity(), ItemSelectionCallback, AlertDialogCall
         binding.searchViewCard.visibility = View.GONE
     }
 
-    fun hideShimmer() {
+    private fun hideShimmer() {
         binding.shimmer.stopShimmer()
         binding.shimmer.visibility = View.GONE
         //Utility.showProgress(getActivity()) 
@@ -113,10 +113,10 @@ class MainActivity : AppCompatActivity(), ItemSelectionCallback, AlertDialogCall
     }
 
     //find the repo using name
-    fun findInLiveData(key: String) {
+    private fun findInLiveData(key: String) {
         val repoSearchlist: ArrayList<Item> = java.util.ArrayList<Item>()
 
-        viewModel.itemsLiveData.observe(this, { repoList ->
+        viewModel.itemsLiveData.observe(this) { repoList ->
             for (user in repoList) {
                 if (user.getOwner()?.getLogin()?.contains(key) == true) {
                     repoSearchlist.add(user)
@@ -124,11 +124,11 @@ class MainActivity : AppCompatActivity(), ItemSelectionCallback, AlertDialogCall
                         repoSearchlist // return member when name found
                 }
             }
-        })
+        }
         if (repoSearchlist.size > 0) {
-            viewModel.itemsLiveSearchData.observe(this@MainActivity, { repoList ->
+            viewModel.itemsLiveSearchData.observe(this@MainActivity) { repoList ->
                 repoAdapter.setRepoList(repoList as ArrayList<Item>)
-            })
+            }
         } else {
             Utility.displayMessage(this, getString(R.string.lbl_no_data))
         }
@@ -136,7 +136,7 @@ class MainActivity : AppCompatActivity(), ItemSelectionCallback, AlertDialogCall
 
 
     private fun prepareRecyclerView() {
-        repoAdapter = GitRepoAdapter(ArrayList<Item>(), this, this)
+        repoAdapter = GitRepoAdapter(ArrayList(), this, this)
         binding.rvRepos.apply {
             layoutManager = GridLayoutManager(applicationContext, 1)
             adapter = repoAdapter
