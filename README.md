@@ -15,3 +15,7 @@ Glide (To display images)
 RecylclervView
 
 ViewBinding
+
+Install app path ../apk/kotlinMvvmDemoJdave.apk
+
+Screenshots app path ../screenshots/
