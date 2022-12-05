@@ -59,24 +59,11 @@ class GitRepoAdapter(
             holder.imgSelected.setImageResource(R.drawable.ic_unselected)
         }
         holder.imgSelected.setOnClickListener {
-            if (item?.getSelected() == true) {
-                MainActivity.viewModel.itemsLiveData.value?.get(holder.adapterPosition)?.getOwner()?.setSelected(false)
-                item.setSelected(false)
-                holder.imgSelected.setImageResource(R.drawable.ic_unselected)
-                notifyItemChanged(holder.adapterPosition)
-            } else {
-                MainActivity.viewModel.itemsLiveData.value?.get(holder.adapterPosition)?.getOwner()?.setSelected(true)
-                item?.setSelected(true)
-                holder.imgSelected.setImageResource(R.drawable.ic_selected)
-                notifyItemChanged(holder.adapterPosition)
-            }
+
+            itemSelectionCallback.onClick(item, holder.adapterPosition)
+
         }
         holder.carditem.setOnLongClickListener {
-            if (item?.getSelected()==true) {
-                holder.imgSelected.setImageResource(R.drawable.ic_unselected)
-            } else {
-                holder.imgSelected.setImageResource(R.drawable.ic_selected)
-            }
             itemSelectionCallback.onClick(item , holder.adapterPosition)
             false
         }

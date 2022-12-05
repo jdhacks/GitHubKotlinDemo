@@ -22,10 +22,7 @@ import com.github.githubmvvmdemo.viewModels.RepoViewModel
 class MainActivity : AppCompatActivity(), ItemSelectionCallback, AlertDialogCallback,
     ApiResponseCallback {
     lateinit var binding: ActivityMainBinding
-
-    companion object {
-        lateinit var viewModel: RepoViewModel
-    }
+    lateinit var viewModel: RepoViewModel
 
     private lateinit var repoAdapter: GitRepoAdapter
 
@@ -36,11 +33,13 @@ class MainActivity : AppCompatActivity(), ItemSelectionCallback, AlertDialogCall
          showShimmer()
         prepareRecyclerView()
         fetchData()
+
+        //Delay to display shimmer
         Handler(Looper.getMainLooper()).postDelayed({
             setUpSearch()
             setDataInListView()
             hideShimmer()
-        }, 3000)
+        }, 2000)
 
     }
 
@@ -53,30 +52,28 @@ class MainActivity : AppCompatActivity(), ItemSelectionCallback, AlertDialogCall
     }
 
     fun setDataInListView() {
-        viewModel.observLiveData().observe(this@MainActivity, { repoList ->
+        viewModel.itemsLiveData.observe(this@MainActivity, { repoList ->
             repoAdapter.setRepoList(repoList as ArrayList<Item>)
             hideShimmer()
         })
     }
-
+    fun setSearchOperation(s: String) {
+        if (!s.isEmpty()) {
+            findInLiveData(s)
+        } else {
+            setDataInListView()
+        }
+    }
     fun setUpSearch() {
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(s: String): Boolean {
-                if (!s.isEmpty()) {
-                    findInLiveData(s)
-                } else {
-                    setDataInListView()
-                }
+                setSearchOperation(s)
                 return false
             }
 
             override fun onQueryTextChange(s: String): Boolean {
-                if (!s.isEmpty()) {
-                    findInLiveData(s)
-                } else {
-                    setDataInListView()
-                }
+                setSearchOperation(s)
                 return false
             }
         })
@@ -119,7 +116,7 @@ class MainActivity : AppCompatActivity(), ItemSelectionCallback, AlertDialogCall
     fun findInLiveData(key: String) {
         val repoSearchlist: ArrayList<Item> = java.util.ArrayList<Item>()
 
-        viewModel.observLiveData().observe(this, { repoList ->
+        viewModel.itemsLiveData.observe(this, { repoList ->
             for (user in repoList) {
                 if (user.getOwner()?.getLogin()?.contains(key) == true) {
                     repoSearchlist.add(user)

@@ -44,10 +44,4 @@ class RepoViewModel : ViewModel() {
                    return itemsLiveData
                }
 
-               fun observLiveData() : LiveData<List<Item>> {
-                   return itemsLiveData
-               }
-
-
-
 }
